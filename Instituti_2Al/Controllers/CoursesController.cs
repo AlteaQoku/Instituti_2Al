@@ -27,6 +27,13 @@ namespace Instituti_2Al.Controllers
             var applicationDbContext = _context.Course.Include(c => c.DeletedBy).Include(c => c.Person).Include(c => c.UpdatedBy);
             return View(await applicationDbContext.ToListAsync());
         }
+        public  IActionResult CourseList()
+        {
+            var course =  _context.Courses.ToList();
+            return PartialView("_CourseList",course);
+        }
+
+
 
         // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -110,7 +117,7 @@ namespace Instituti_2Al.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,Description,Price,Content,Image,Featured,Deleted,Id,PersonId,CreatedOn,IsDeleted,DeletedById,UpdatedById,UpdatedOn")] Course course)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,Description,Price,Content,Image,ImageFile,Featured,Deleted,Id,PersonId,CreatedOn,IsDeleted,DeletedById,UpdatedById,UpdatedOn")] Course course, IFormFile ImageFile)
         {
             if (id != course.Id)
             {
@@ -121,6 +128,14 @@ namespace Instituti_2Al.Controllers
             {
                 try
                 {
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "Img/", ImageFile.FileName);
+                    using (FileStream stream = new FileStream(path, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(stream);
+                        stream.Close();
+
+                    }
+                    course.Image = ImageFile.FileName;
                     _context.Update(course);
                     await _context.SaveChangesAsync();
                 }

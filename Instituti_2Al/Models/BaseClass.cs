@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Instituti_2Al.Models
 {
+    [NotMapped]
     public class BaseClass
     {
         [Key]
@@ -17,11 +18,11 @@ namespace Instituti_2Al.Models
         public DateTime UpdatedOn { get; set; }
 
         [ForeignKey("PersonId")]
-        public virtual IdentityUser Person { get; set; } 
+        public virtual IdentityUser? Person { get; set; } 
         [ForeignKey("DeletedById")]
-        public virtual IdentityUser DeletedBy { get; set; }
+        public virtual IdentityUser? DeletedBy { get; set; }
         [ForeignKey("UpdatedById")]
-        public virtual IdentityUser UpdatedBy { get;set; }
+        public virtual IdentityUser? UpdatedBy { get;set; }
 
 
     }

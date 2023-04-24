@@ -6,10 +6,10 @@ namespace Instituti_2Al.Models
 {
     public class Course : BaseClass
     {
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
         public string Description { get; set; }
         public double Price { get; set; }
-        public string Content { get; set; }
+        public string Content { get; set; }=string.Empty;
         public string Image { get; set; } = String.Empty;
 
         [NotMapped]

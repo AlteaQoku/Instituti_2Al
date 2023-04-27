@@ -24,7 +24,7 @@ namespace Instituti_2Al.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Course.Include(c => c.DeletedBy).Include(c => c.Person).Include(c => c.UpdatedBy);
+            var applicationDbContext = _context.Courses.Include(c => c.DeletedBy).Include(c => c.Person).Include(c => c.UpdatedBy);
             return View(await applicationDbContext.ToListAsync());
         }
         public  IActionResult CourseList()
@@ -38,12 +38,12 @@ namespace Instituti_2Al.Controllers
         // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Course == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Course
+            var course = await _context.Courses
                 .Include(c => c.DeletedBy)
                 .Include(c => c.Person)
                 .Include(c => c.UpdatedBy)
@@ -96,12 +96,12 @@ namespace Instituti_2Al.Controllers
         // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Course == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course == null)
             {
                 return NotFound();
@@ -161,12 +161,12 @@ namespace Instituti_2Al.Controllers
         // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Course == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Course
+            var course = await _context.Courses
                 .Include(c => c.DeletedBy)
                 .Include(c => c.Person)
                 .Include(c => c.UpdatedBy)
@@ -184,14 +184,14 @@ namespace Instituti_2Al.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Course == null)
+            if (_context.Courses == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Course'  is null.");
             }
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course != null)
             {
-                _context.Course.Remove(course);
+                _context.Courses.Remove(course);
             }
             
             await _context.SaveChangesAsync();
@@ -200,7 +200,7 @@ namespace Instituti_2Al.Controllers
 
         private bool CourseExists(int id)
         {
-          return (_context.Course?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Courses?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

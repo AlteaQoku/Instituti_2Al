@@ -7,7 +7,7 @@ namespace Instituti_2Al.Models
     public class Course : BaseClass
     {
         public string Title { get; set; } = string.Empty;
-        public string Description { get; set; }
+        public string Description { get; set; } = String.Empty;
         public double Price { get; set; }
         public string Content { get; set; }=string.Empty;
         public string Image { get; set; } = String.Empty;

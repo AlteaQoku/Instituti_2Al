@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Instituti_2Al.Models
 {
-    [NotMapped]
-    public class BaseClass
+    public abstract class BaseClass
     {
         [Key]
         public int Id { get; set; }
 
-        public string PersonId { get; set; } = string.Empty;
+        public string? PersonId { get; set; } = string.Empty;
         public DateTime CreatedOn { get; set; }
         public bool IsDeleted { get; set; }
-        public string DeletedById { get; set; } = string.Empty;
-        public string UpdatedById { get; set; } = string.Empty;
+        public string? DeletedById { get; set; } = string.Empty;
+        public string? UpdatedById { get; set; } = string.Empty;
         public DateTime UpdatedOn { get; set; }
 
         [ForeignKey("PersonId")]
